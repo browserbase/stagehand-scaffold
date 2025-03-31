@@ -67,11 +67,12 @@ async function run() {
     stagehand,
   });
   await stagehand.close();
-  console.log(
-    `\n🤘 Thanks so much for using Stagehand! Reach out to us on Slack if you have any feedback: ${chalk.blue(
+  stagehand.log({
+    category: "create-browser-app",
+    message: `\n🤘 Thanks so much for using Stagehand! Reach out to us on Slack if you have any feedback: ${chalk.blue(
       "https://stagehand.dev/slack"
-    )}\n`
-  );
+    )}\n`,
+  });
 }
 
 run();

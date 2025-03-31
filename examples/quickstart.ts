@@ -56,7 +56,16 @@ async function main({
       text: z.string(),
     }),
   });
-  console.log(chalk.green("AI suggestion:"), text);
+  stagehand.log({
+    category: "create-browser-app",
+    message: `Got AI Suggestion`,
+    auxiliary: {
+      text: {
+        value: text,
+        type: "string",
+      },
+    },
+  });
 }
 
 /**
