@@ -1,10 +1,9 @@
 {
   "quickstart": {
-    "examples/quickstart.ts": "main.ts",
-    "examples/run.ts": "index.ts"
+    "examples/quickstart.ts": "index.ts"
   },
   "blank": {
-    "examples/blank.ts": "main.ts",
+    "examples/blank.ts": "index.ts",
     "examples/run.ts": "index.ts"
   },
   "persist-context": {
@@ -17,26 +16,18 @@
   },
   "custom-client-ollama": {
     "examples/custom_client_ollama.ts": "main.ts",
-    "examples/ollama_client.ts": "ollama_client.ts",
-    "examples/run.ts": "index.ts"
+    "examples/ollama_client.ts": "ollama_client.ts"
   },
   "custom-client-ollama-blank": {
     "examples/blank.ts": "main.ts",
-    "examples/ollama_client.ts": "ollama_client.ts",
-    "examples/run.ts": "index.ts"
+    "examples/ollama_client.ts": "ollama_client.ts"
   },
   "custom-client-aisdk": {
-    "examples/quickstart.ts": "main.ts",
-    "examples/run.ts": "index.ts",
+    "examples/quickstart.ts": "index.ts",
     "examples/aisdk_client.ts": "aisdk_client.ts"
   },
   "custom-client-aisdk-blank": {
-    "examples/blank.ts": "main.ts",
-    "examples/aisdk_client.ts": "aisdk_client.ts",
-    "examples/run.ts": "index.ts"
-  },
-  "mintlify-ai": {
-    "examples/mintlify_ai.ts": "main.ts",
-    "examples/run.ts": "index.ts"
+    "examples/blank.ts": "index.ts",
+    "examples/aisdk_client.ts": "aisdk_client.ts"
   }
 }
