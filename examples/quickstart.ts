@@ -66,6 +66,16 @@ async function main({
       },
     },
   });
+  stagehand.log({
+    category: "create-browser-app",
+    message: `Metrics`,
+    auxiliary: {
+      metrics: {
+        value: JSON.stringify(stagehand.metrics),
+        type: "object",
+      },
+    },
+  });
 }
 
 /**
