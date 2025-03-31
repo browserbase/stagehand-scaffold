@@ -12,7 +12,7 @@
  * To use this client, you need to have Vercel AI SDK installed and the appropriate environment variables set.
  *
  * ```bash
- * npm install @vercel/ai
+ * npm install ai
  * ```
  */
 
