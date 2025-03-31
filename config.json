@@ -14,13 +14,13 @@
     "examples/api/stagehand.ts": "api/stagehand.ts",
     "examples/vercel.json": "vercel.json"
   },
-  "custom-client-ollama": {
-    "examples/custom_client_ollama.ts": "main.ts",
-    "examples/ollama_client.ts": "ollama_client.ts"
+  "custom-client-openai": {
+    "examples/quickstart.ts": "index.ts",
+    "examples/customOpenAI_client.ts": "customOpenAI_client.ts"
   },
-  "custom-client-ollama-blank": {
-    "examples/blank.ts": "main.ts",
-    "examples/ollama_client.ts": "ollama_client.ts"
+  "custom-client-openai-blank": {
+    "examples/blank.ts": "index.ts",
+    "examples/customOpenAI_client.ts": "customOpenAI_client.ts"
   },
   "custom-client-aisdk": {
     "examples/quickstart.ts": "index.ts",
