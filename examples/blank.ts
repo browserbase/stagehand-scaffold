@@ -2,11 +2,10 @@ import { Stagehand, Page, BrowserContext } from "@browserbasehq/stagehand";
 import StagehandConfig from "./stagehand.config.js";
 import chalk from "chalk";
 import boxen from "boxen";
-import { drawObserveOverlay, clearOverlays, actWithCache } from "./utils.js";
-import { z } from "zod";
 
 /**
  * 🤘 Welcome to Stagehand! Thanks so much for trying us out!
+ * 🛠️ CONFIGURATION: stagehand.config.ts will help you configure Stagehand
  *
  * 📝 Check out our docs for more fun use cases, like building agents
  * https://docs.stagehand.dev/
@@ -28,11 +27,8 @@ async function main({
   context: BrowserContext; // Playwright BrowserContext
   stagehand: Stagehand; // Stagehand instance
 }) {
-  // Navigate to a URL
-  await page.goto("https://docs.stagehand.dev/reference/introduction");
-
   /**
-   * Your code here!
+   * 📝 Your code here!
    */
 }
 

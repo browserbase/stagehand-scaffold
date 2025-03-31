@@ -7,6 +7,7 @@ import { z } from "zod";
 
 /**
  * 🤘 Welcome to Stagehand! Thanks so much for trying us out!
+ * 🛠️ CONFIGURATION: stagehand.config.ts will help you configure Stagehand
  *
  * 📝 Check out our docs for more fun use cases, like building agents
  * https://docs.stagehand.dev/
