@@ -6,13 +6,14 @@
 /**
  * Welcome to the Stagehand Vercel AI SDK client!
  *
- * This is a client for OpenAI using Vercel AI SDK
+ * This is a client for Vercel AI SDK
  * that allows you to create chat completions with Vercel AI SDK.
  *
  * To use this client, you need to have Vercel AI SDK installed and the appropriate environment variables set.
  *
  * ```bash
- * npm install @vercel/ai
+ * npm install ai
+ * npm install @ai-sdk/openai # or @ai-sdk/anthropic, @ai-sdk/google, etc.
  * ```
  */
 
@@ -28,12 +29,12 @@ import {
   LanguageModel,
   TextPart,
 } from "ai";
-import { ChatCompletion } from "openai/resources/chat/completions";
 import {
   CreateChatCompletionOptions,
   LLMClient,
   AvailableModel,
 } from "@browserbasehq/stagehand";
+import { ChatCompletion } from "openai/resources";
 
 export class AISdkClient extends LLMClient {
   public type = "aisdk" as const;
@@ -107,12 +108,19 @@ export class AISdkClient extends LLMClient {
         schema: options.response_model.schema,
       });
 
-      return response.object;
+      return {
+        data: response.object,
+        usage: {
+          prompt_tokens: response.usage.promptTokens ?? 0,
+          completion_tokens: response.usage.completionTokens ?? 0,
+          total_tokens: response.usage.totalTokens ?? 0,
+        },
+      } as T;
     }
 
     const tools: Record<string, CoreTool> = {};
 
-    for (const rawTool of options.tools || []) {
+    for (const rawTool of options.tools) {
       tools[rawTool.name] = {
         description: rawTool.description,
         parameters: rawTool.parameters,
@@ -125,6 +133,13 @@ export class AISdkClient extends LLMClient {
       tools,
     });
 
-    return response as T;
+    return {
+      data: response.text,
+      usage: {
+        prompt_tokens: response.usage.promptTokens ?? 0,
+        completion_tokens: response.usage.completionTokens ?? 0,
+        total_tokens: response.usage.totalTokens ?? 0,
+      },
+    } as T;
   }
 }
