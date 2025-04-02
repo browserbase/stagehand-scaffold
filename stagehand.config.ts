@@ -1,4 +1,4 @@
-import type { ConstructorParams } from "@browserbase/stagehand";
+import type { ConstructorParams } from "@browserbasehq/stagehand";
 import dotenv from "dotenv";
 dotenv.config();
 
