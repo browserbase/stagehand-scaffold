@@ -2,8 +2,6 @@ import { Stagehand, Page, BrowserContext } from "@browserbasehq/stagehand";
 import StagehandConfig from "./stagehand.config.js";
 import chalk from "chalk";
 import boxen from "boxen";
-import { drawObserveOverlay, clearOverlays, actWithCache } from "./utils.js";
-import { z } from "zod";
 
 /**
  * 🤘 Welcome to Stagehand! Thanks so much for trying us out!
@@ -22,60 +20,34 @@ import { z } from "zod";
  */
 async function main({
   page,
-  context,
   stagehand,
 }: {
   page: Page; // Playwright Page with act, extract, and observe methods
   context: BrowserContext; // Playwright BrowserContext
   stagehand: Stagehand; // Stagehand instance
 }) {
-  // Navigate to a URL
-  await page.goto("https://docs.stagehand.dev/reference/introduction");
+  // Navigate to the chess website
+  await page.goto("https://plainchess.timwoelfle.de/");
+  // Execute simple action using just an LLM
+  await page.act("click 'play offline'");
 
-  // Use act() to take actions on the page
-  await page.act("Click the search box");
-
-  // Use observe() to plan an action before doing it
-  const [action] = await page.observe(
-    "Type 'Tell me in one sentence why I should use Stagehand' into the search box"
-  );
-  await drawObserveOverlay(page, [action]); // Highlight the search box
-  await page.waitForTimeout(1000);
-  await clearOverlays(page); // Remove the highlight before typing
-  await page.act(action); // Take
-
-  // For more on caching, check out our docs: https://docs.stagehand.dev/examples/caching
-  await actWithCache(page, "Click the suggestion to use AI");
-  await page.waitForTimeout(4000);
-
-  // Use extract() to extract structured data from the page
-  const { text } = await page.extract({
-    instruction:
-      "extract the text of the AI suggestion from the search results",
-    schema: z.object({
-      text: z.string(),
-    }),
+  // Create computer use agents
+  const whiteAgent = stagehand.agent({
+    provider: "anthropic",
+    model: "claude-3-7-sonnet-20250219",
   });
-  stagehand.log({
-    category: "create-browser-app",
-    message: `Got AI Suggestion`,
-    auxiliary: {
-      text: {
-        value: text,
-        type: "string",
-      },
-    },
+  const blackAgent = stagehand.agent({
+    provider: "openai",
+    model: "computer-use-preview",
   });
-  stagehand.log({
-    category: "create-browser-app",
-    message: `Metrics`,
-    auxiliary: {
-      metrics: {
-        value: JSON.stringify(stagehand.metrics),
-        type: "object",
-      },
-    },
-  });
+  while (true) {
+    await whiteAgent.execute(
+      "You are the white player. ONLY TAKE ONE MOVE, and then stop. Make the best move you can."
+    );
+    await blackAgent.execute(
+      "You are the black player. ONLY TAKE ONE MOVE, and then stop. Make the best move you can."
+    );
+  }
 }
 
 /**
@@ -113,11 +85,12 @@ async function run() {
     stagehand,
   });
   await stagehand.close();
-  console.log(
-    `\n🤘 Thanks so much for using Stagehand! Reach out to us on Slack if you have any feedback: ${chalk.blue(
+  stagehand.log({
+    category: "create-browser-app",
+    message: `\n🤘 Thanks so much for using Stagehand! Reach out to us on Slack if you have any feedback: ${chalk.blue(
       "https://stagehand.dev/slack"
-    )}\n`
-  );
+    )}\n`,
+  });
 }
 
 run();
