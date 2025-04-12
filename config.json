@@ -3,7 +3,7 @@
     "examples/quickstart.ts": "index.ts"
   },
   "blank": {
-    "examples/run.ts": "index.ts"
+    "examples/blank.ts": "index.ts"
   },
   "chess": {
     "examples/chess.ts": "index.ts"
