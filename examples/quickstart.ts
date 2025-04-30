@@ -45,8 +45,9 @@ async function main({
   await page.act(action); // Take the action
 
   // For more on caching, check out our docs: https://docs.stagehand.dev/examples/caching
-  await page.waitForTimeout(5_000);
+  await page.waitForTimeout(1_000);
   await actWithCache(page, "Click the suggestion to use AI");
+  await page.waitForTimeout(5_000);
 
   // Use extract() to extract structured data from the page
   const { text } = await page.extract({
