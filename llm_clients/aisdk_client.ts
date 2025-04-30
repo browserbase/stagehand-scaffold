@@ -64,13 +64,13 @@ export class AISdkClient extends LLMClient {
           if ("image_url" in content) {
             const imageContent: ImagePart = {
               type: "image",
-              image: content.image_url.url,
+              image: content.image_url?.url ?? "",
             };
             return imageContent;
           } else {
             const textContent: TextPart = {
               type: "text",
-              text: content.text,
+              text: content.text ?? "",
             };
             return textContent;
           }
@@ -120,7 +120,7 @@ export class AISdkClient extends LLMClient {
 
     const tools: Record<string, CoreTool> = {};
 
-    for (const rawTool of options.tools) {
+    for (const rawTool of options.tools ?? []) {
       tools[rawTool.name] = {
         description: rawTool.description,
         parameters: rawTool.parameters,
